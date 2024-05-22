@@ -1,0 +1,99 @@
+* 
+
+  const handleAddComment = async (data) => {
+    try {
+      await axios.post(`/api/v1/comments/${id}`, { content: data.content });
+      reset(); // Reset the form
+      // Refetch comments
+      const commentsResponse = await axios.get(`/api/v1/comments/${id}`);
+      setComments([...commentsResponse.data.data[0].comments]);
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
+
+  const handleUpdateComment = async (commentId, newContent) => {
+    try {
+      await axios.patch(`/api/v1/comments/update-comment/${commentId}`, {
+        content: newContent,
+      });
+      // Refetch comments
+    //   const commentsResponse = await axios.get(`/api/v1/comments/${id}`);
+    //   setComments([...commentsResponse.data.data[0].comments]);
+    //   setEditingCommentId(null); // Clear the editing state
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      await axios.delete(`/api/v1/comments/delete-comment/${commentId}`);
+      // Refetch comments
+      const commentsResponse = await axios.get(`/api/v1/comments/${id}`);
+        setComments([...commentsResponse.data.data[0].comments]);
+        
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+   <div key={comment._id} className="mb-4">
+              <img
+                src={comment.owner[0].avatar}
+                alt={comment.owner[0].username}
+                className="w-10 h-10 rounded-full inline-block mr-2"
+              />
+              <p className="inline-block font-bold">
+                {comment.owner[0].username}
+              </p>
+              {/* {editingCommentId === comment._id ? (
+                <div>
+                  <input
+                    type="text"
+                    defaultValue={comment.content}
+                    onChange={(e) => setNewCommentContent(e.target.value)}
+                  />
+                  <span
+                    className={`fas fa-heart ${
+                      liked ? "text-red-500" : "text-gray-500"
+                    }`}
+                    onClick={handleLike}
+                    style={{ cursor: "pointer" }}
+                  ></span>
+                  <span className="ml-1">{like}</span>
+                  <button
+                    onClick={() =>
+                      handleUpdateComment(comment._id, newCommentContent)
+                    }
+                  >
+                    Update
+                  </button>
+                </div>
+              ) : (
+                <p className="ml-2">{comment.content}</p>
+            //  */
+// };
+//   {isAuthor && (
+//     <div>
+//       <button onClick={() => setEditingCommentId(comment._id)}>
+//         Edit
+//       </button>
+//       <button onClick={() => handleDeleteComment(comment._id)}>
+//         Delete
+//       </button>
+//     </div>
+//   )}
+// </div>
+//   ))}
+
+// <div>
+//   <form onSubmit={handleSubmit(handleAddComment)}>
+//     <input
+//       type="text"
+//       {...register("content", { required: true })}
+//       placeholder="Add a comment"
+//     />
+//     <button type="submit">Add Comment</button>
+//   </form>
+// </div>
+// </> */}
