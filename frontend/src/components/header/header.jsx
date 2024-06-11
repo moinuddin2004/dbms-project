@@ -76,10 +76,9 @@ function Header() {
     //     </nav>
     //   </Container>
     // </header>
-    <div className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50")}>
+    <div className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 ")}>
       <Menu setActive={setActive}>
-       
-
+      
         {navItems.map((item) =>
           item.active ? (
             <Link key={item.name} to={item.slug}>

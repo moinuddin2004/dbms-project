@@ -4,34 +4,36 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Btn from "./Button";
 
-const Comment = ({ _id, content, owner, likes, onDelete }) => {
+const Comment = ({ id, content, owner, likes_count, onDelete }) => {
   const [liked, setLiked] = useState(false);
-  const [like, setLike] = useState(0);
+  const [like, setLike] = useState(likes_count);
   const [updating, setUpdating] = useState(false);
-    const [newContent, setNewContent] = useState(content);
+  const [newContent, setNewContent] = useState(content);
   const userData = useSelector((state) => state.auth.userData);
-  const isAuthor = owner[0]._id === userData._id;
+
+  const isAuthor = owner.id === userData.id;
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(`/api/v1/comments/like/${_id}`);
-        setLike(res.data.data);
-        setLiked(likes.includes(userData._id));
+        const like = await axios.get(`/api/v1/comments/like/${id}`);
+        // setLike(res.data.data);
+        // console.log(like);
+        setLiked(like.data.data.includes(userData.id));
       } catch (error) {
         console.log(error);
       }
     })();
-  }, [_id, likes, userData._id]);
+  }, [id, userData.id]);
 
   const handleLike = async () => {
     try {
       if (!liked) {
-        await axios.patch(`/api/v1/comments/like/${_id}`);
+        await axios.patch(`/api/v1/comments/like/${id}`);
         setLike(like + 1); // Increment like count
       } else {
-        await axios.patch(`/api/v1/comments/dislike/${_id}`);
+        await axios.patch(`/api/v1/comments/dislike/${id}`);
         setLike(like - 1); // Decrement like count
       }
       setLiked(!liked); // Toggle liked state
@@ -42,8 +44,8 @@ const Comment = ({ _id, content, owner, likes, onDelete }) => {
 
   const handleDeleteComment = async () => {
     try {
-      await axios.delete(`/api/v1/comments/c/${_id}`);
-      onDelete(_id); // Update frontend by deleting the comment
+      await axios.delete(`/api/v1/comments/c/${id}`);
+      onDelete(id); // Update frontend by deleting the comment
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
@@ -51,7 +53,7 @@ const Comment = ({ _id, content, owner, likes, onDelete }) => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.patch(`/api/v1/comments/c/${_id}`, { content: data.content });
+      await axios.patch(`/api/v1/comments/c/${id}`, { content: data.content });
       setNewContent(data.content);
       setUpdating(false);
     } catch (error) {
@@ -85,13 +87,13 @@ const Comment = ({ _id, content, owner, likes, onDelete }) => {
       ) : (
         <div className="flex items-center">
           <img
-            src={owner[0].avatar}
-            alt={owner[0]._id}
+            src={owner.avatar}
+            alt={owner.id}
             className="w-8 h-8 rounded-full mr-2"
           />
           <div>
             <div className="flex items-center">
-              <p className="font-bold">{owner[0].username}</p>
+              <p className="font-bold">{owner.username}</p>
               <span
                 className={`fas fa-heart ml-2 ${
                   liked ? "text-red-500" : "text-gray-500"
@@ -100,7 +102,9 @@ const Comment = ({ _id, content, owner, likes, onDelete }) => {
               />
               <span className="ml-1">{like}</span>
             </div>
-            <div className=" border-2 rounded-md w-auto bg-pink-200">{newContent}</div>
+            <div className=" border-2 rounded-md w-auto bg-pink-200">
+              {newContent}
+            </div>
           </div>
 
           {isAuthor && (

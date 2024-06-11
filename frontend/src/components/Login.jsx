@@ -38,7 +38,12 @@ function Login() {
       <div
         className={`mx-auto w-full max-w-lg bg-pink-100 rounded-xl p-10 border border-black/10`}
       >
-        <h2 className="text-center text-2xl font-bold leading-tight text-slate-500 ">
+        <img
+          src="/logo.svg"
+          alt=""
+          className="bg-transparent mix-blend-multiply h-[70px]  mx-auto "
+        />
+        <h2 className="text-center text-2xl font-bold leading-tight text-purple-500 ">
           Login to your account
         </h2>
         <p className="mt-2 text-center text-base text-black/60">

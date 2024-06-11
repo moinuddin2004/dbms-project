@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import authService from "../appwrite/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
 import { Button, Input, Logo } from "./index.js";
@@ -26,24 +25,25 @@ function Signup() {
 
     try {
       const userData = await axios.post("/api/v1/users/register", formData );
-      // const userData = await authService.createAccount(data);
-      if (userData) {
-        // const userData = await authService.getCurrentUser();
-        const userData = await axios.get("/api/v1/users/current-user");
-        if (userData) dispatch(login(userData));
-        navigate("/");
-      }
+     if(userData) {
+      navigate("/login");
+     }
     } catch (error) {
       setError(error.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center  text-slate-500">
+    <div className="flex items-center justify-center  text-slate-500 mt-6">
       <div
         className={`mx-auto w-full max-w-lg bg-pink-100 rounded-xl p-10 border  border-black/10`}
       >
-        <h2 className="text-center text-2xl font-bold leading-tight  text-slate-500">
+        <img
+          src="/logo.svg"
+          alt=""
+          className="bg-transparent mix-blend-multiply h-[70px]  m-auto "
+        />
+        <h2 className="text-center text-2xl font-bold leading-tight  text-purple-500 ">
           Sign up to create account
         </h2>
         <p className="mt-2 text-center text-base text-black/60">

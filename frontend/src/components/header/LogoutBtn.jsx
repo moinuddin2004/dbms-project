@@ -14,7 +14,7 @@ const Navigate=useNavigate()
       Navigate("/");
     
     } catch (error) {
-      console.log("Appwrite serive :: logout :: error", error);
+      console.log(" logout :: error", error);
     }
   };
   return (

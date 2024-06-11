@@ -4,28 +4,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
-const refreshToken = async () => {
-  try {
-    const response = await axios.post("/api/v1/users/refresh-accessToken");
-  } catch (error) {
-    console.error("Error refreshing access token:", error);
-  }
-};
-
-// Example of how to get the expiration time of the access token (adjust as needed)
-const accessTokenExpiration = Date.now() + 86400 * 1000; // 1 day in milliseconds
-
-// Check if the access token is expired or close to expiration
-const checkAccessTokenExpiration = () => {
-  const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-  const expirationThreshold = 300; // 5 minutes
-  if (accessTokenExpiration - currentTime < expirationThreshold) {
-    refreshToken();
-  }
-};
-
-// Check the access token expiration when the app is initialized or when a protected route is accessed
-checkAccessTokenExpiration();
 
 function Profile() {
   const userData = useSelector((state) => state.auth.userData);
@@ -49,23 +27,30 @@ function Profile() {
   useEffect(() => {
     (async () => {
       const response = await axios.get("/api/v1/posts/get-user-all-Post");
-      setPosts(response.data.data);
-      console.log(response.data.data);
-    })();
-  }, []);
+      setPosts(response.data.data.posts);
 
+      console.log(response.data);
+      })();
+      }, []);
+      console.log(posts);
   const toggleChangePassword = () => {
     setShowChangePassword((prev) => !prev);
   };
 
   return (
-    <div className="w-full py-8   bg-gradient-to-br from-purple-400 via-pink-500 to-red-500">
+    <div className="w-full py-8   bg-gradient-to-br from-blue-300 via-pink-200 to-red-100">
       <Container>
+      <img
+        src="/logo.svg"
+        alt=""
+        className="bg-transparent mix-blend-multiply h-[50px] w-[200px] fixed top-[50px]"
+      />
         <div className="flex  mb-8  mt-[100px] items-center gap-7">
           <img
             src={userData.avatar}
             alt=""
-            className="rounded-full w-40 h-40 mb-2  border-4  border-blue-700 "/>
+            className="rounded-full w-40 h-40 mb-2  border-4  border-blue-700 "
+          />
           <div>
             <h3 className="text-2xl font-bold  ">{userData.fullName}</h3>
             <p className="text-gray-600">Email: {userData.email}</p>
@@ -74,7 +59,7 @@ function Profile() {
 
           <button
             onClick={toggleChangePassword}
-            className="bg-orange-400 text-white px-4 py-2 rounded absolute top-10 max-sm:top-[300px] right-0 m-2 "
+            className="bg-orange-400 text-white px-4 py-2 rounded absolute top-10 max-sm:top-[275px] right-0 m-2 "
           >
             Change Password
           </button>
@@ -118,7 +103,7 @@ function Profile() {
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 ">
             {posts.map((post) => (
-              <div key={post._id} className="">
+              <div key={post.id} className="">
                 <PostCard {...post} />
               </div>
             ))}

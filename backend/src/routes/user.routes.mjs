@@ -9,7 +9,7 @@ import {
   getCurrentUser,
   updateAccountDetails,
   updateUserAvatar,
-  getAllUser
+  getAllUser,
   // forgotPassword
 } from "../controllers/user.controller.mjs";
 import { verifyJWT } from "../middlewares/auth.middleware.mjs";
