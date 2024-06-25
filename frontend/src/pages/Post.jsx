@@ -137,6 +137,7 @@ export default function Post() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Input
                     {...register("content", { required: true })}
+                    className="input input-bordered flex items-center gap-2 w-full input-accent"
                     placeholder="Enter your comment"
                   />
                   <Button type="submit" bgColor="bg-blue-500" className="mt-2">

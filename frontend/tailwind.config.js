@@ -12,15 +12,15 @@ export default {
         fifth: "moveInCircle 20s ease infinite",
         "meteor-effect": "meteor 5s linear infinite",
       },
-    keyframes: {
+      keyframes: {
         meteor: {
           "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
           "70%": { opacity: "1" },
           "100%": {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: "0",
-           },
-      },
+          },
+        },
         moveHorizontal: {
           "0%": {
             transform: "translateX(-50%) translateY(-10%)",
@@ -57,5 +57,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

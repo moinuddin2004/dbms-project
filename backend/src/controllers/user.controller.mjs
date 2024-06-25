@@ -152,7 +152,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
   // const isPasswordValid = await user.comparePassword(password);
 
-
+  console.log(user.password);
+  console.log(password);
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
@@ -301,20 +302,29 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 
   // const user = await User.findById(req.user?._id);
   const user = await prisma.user.findUnique({
-      where: {
-        id: req.user?.id,
-      },
-    })
+    where: {
+      id: req.user?.id,
+    },
+  });
   // const isPasswordCorrect = await user.comparePassword(oldPassword);
 
   const isPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
-
+  const salt = await bcrypt.genSalt(10);
+ let hashedPassword = await bcrypt.hash(newPassword, salt)
+       
   if (!isPasswordCorrect) {
     throw new ApiError(400, "Invalid old password");
   }
-
-  user.password = newPassword;
-  await user.save({ validateBeforeSave: false });
+  const updateUser = await prisma.user.update({
+    where: {
+      id: req.user?.id,
+    },
+    data: {
+      password: hashedPassword,
+    },
+  });
+  // user.password = newPassword;
+  // await user.save({ validateBeforeSave: false });
 
   return res
     .status(200)
@@ -324,12 +334,16 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 // const forgotPassword = asyncHandler(async (req, res) => {
 //   const { email } = req.body;
 //   // console.log(email);
-//   const user = await User.findOne({ email });
-
+//    const user= await prisma.user.findFirst({
+//      where: {
+//       email
+//     }
+//   })
+// let userId=user.id
 //   if (!user) {
 //     throw new ApiError(404, "User not found");
 //   }
-//   const token = user.generateResetPasswordToken();
+//   const token =await bcrypt.hash(userId.toString(), 10);
 
 //   if (!token) {
 //     throw new ApiError(500, "Error while generating reset password token");

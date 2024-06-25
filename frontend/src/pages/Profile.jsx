@@ -40,11 +40,11 @@ function Profile() {
   return (
     <div className="w-full py-8   bg-gradient-to-br from-blue-300 via-pink-200 to-red-100">
       <Container>
-      <img
-        src="/logo.svg"
-        alt=""
-        className="bg-transparent mix-blend-multiply h-[50px] w-[200px] fixed top-[50px]"
-      />
+        <img
+          src="/logo.svg"
+          alt=""
+          className="bg-transparent mix-blend-multiply h-[50px] w-[200px] fixed top-[50px]"
+        />
         <div className="flex  mb-8  mt-[100px] items-center gap-7">
           <img
             src={userData.avatar}
@@ -77,6 +77,7 @@ function Profile() {
                   <Input
                     label="Password: "
                     type="password"
+                    className="input input-bordered flex items-center gap-2 w-full input-accent "
                     placeholder="Enter your old password"
                     {...register("oldPassword", {
                       required: true,
@@ -86,6 +87,7 @@ function Profile() {
                   <Input
                     label="New Password: "
                     type="password"
+                    className="input input-bordered flex items-center gap-2 w-full input-accent "
                     placeholder="Enter your New password"
                     {...register("newPassword", {
                       required: true,

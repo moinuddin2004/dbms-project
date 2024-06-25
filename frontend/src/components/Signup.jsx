@@ -62,13 +62,16 @@ function Signup() {
             <Input
               label="avatar: "
               type="file"
+              className="file-input file-input-bordered file-input-info w-full input-accent "
               placeholder="Enter your avatar"
               {...register("avatar", {
                 required: true,
               })}
             />
+
             <Input
               label="User Name: "
+              className="input input-bordered flex items-center gap-2 w-full input-accent "
               placeholder="Enter your user name"
               {...register("username", {
                 required: true,
@@ -76,6 +79,7 @@ function Signup() {
             />
             <Input
               label="Full Name: "
+              className="input input-bordered flex items-center gap-2 w-full input-accent "
               placeholder="Enter your full name"
               {...register("fullName", {
                 required: true,
@@ -83,6 +87,7 @@ function Signup() {
             />
             <Input
               label="Email: "
+              className="input input-bordered flex items-center gap-2 w-full input-accent"
               placeholder="Enter your email"
               type="email"
               {...register("email", {
@@ -96,6 +101,7 @@ function Signup() {
             />
             <Input
               label="Password: "
+              className="input input-bordered flex items-center gap-2 w-full input-accent"
               type="password"
               placeholder="Enter your password"
               {...register("password", {

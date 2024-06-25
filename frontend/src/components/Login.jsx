@@ -60,6 +60,7 @@ function Login() {
           <div className="space-y-5">
             <Input
               label="Email: "
+              className="input input-bordered flex items-center gap-2 w-full input-accent"
               placeholder="Enter your email"
               type="email"
               {...register("email", {
@@ -73,6 +74,7 @@ function Login() {
             />
             <Input
               label="Password: "
+              className="input input-bordered flex items-center gap-2 w-full input-accent"
               type="password"
               placeholder="Enter your password"
               {...register("password", {
@@ -80,9 +82,9 @@ function Login() {
               })}
             />
             <br />
-            <Link className="text-blue-500 underline" to="/forgot-password">
+            {/* <Link className="text-blue-500 underline" to="/forgot-password">
               forgot password
-            </Link>
+            </Link> */}
             <Button type="submit" className="w-full">
               Login
             </Button>

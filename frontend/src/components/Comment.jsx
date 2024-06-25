@@ -69,11 +69,11 @@ const Comment = ({ id, content, owner, likes_count, onDelete }) => {
             type="text"
             defaultValue={newContent}
             {...register("content")}
-            className="border-2 border-gray-400 rounded-md p-1 mr-2"
+            className="input input-bordered flex items-center gap-2 w-full input-accent"
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white px-2 py-1 rounded-md"
+            className="bg-blue-500 text-white px-2 py-1 m-2 rounded-md"
           >
             Update
           </button>
@@ -102,7 +102,7 @@ const Comment = ({ id, content, owner, likes_count, onDelete }) => {
               />
               <span className="ml-1">{like}</span>
             </div>
-            <div className=" border-2 rounded-md w-auto bg-pink-200">
+            <div className="border-2 rounded-md w-auto bg-pink-200 max-h-96 overflow-y-auto max-w-[850px]">
               {newContent}
             </div>
           </div>

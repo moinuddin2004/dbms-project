@@ -98,7 +98,7 @@ export default function PostForm({ post }) {
           <Input
             label="Title :"
             placeholder="Title"
-            className="mb-4"
+            className="input input-bordered flex items-center gap-2 w-full input-accent"
             {...register("title", { required: true })}
           />
           <RTE
@@ -112,7 +112,7 @@ export default function PostForm({ post }) {
           <Input
             label="Thumbnail :"
             type="file"
-            className="mb-4"
+            className="file-input file-input-bordered file-input-info w-full input-accent "
             accept="image/png, image/jpg, image/jpeg, image/gif,video/*"
             {...register("thumbnail", { required: !post })}
           />
@@ -122,7 +122,7 @@ export default function PostForm({ post }) {
                 <img
                   src={post.thumbnail} // Update this with the correct field name for thumbnail
                   alt={post.title}
-                  className="rounded-lg"
+                  className="rounded-lg mt-7"
                 />
               ) : (
                 <video
@@ -137,7 +137,7 @@ export default function PostForm({ post }) {
           <Button
             type="submit"
             bgColor={post ? "bg-green-500" : undefined}
-            className="w-full"
+            className="w-full mt-4"
           >
             {post ? "Update" : "Submit"}
           </Button>
